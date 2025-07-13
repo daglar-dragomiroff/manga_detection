@@ -46,6 +46,54 @@ OCR_QUALITY = {
     'tesseract_confidence': 0.3, # Уверенность для Tesseract (обычно ниже)
 }
 
+# ====== НОВЫЕ НАСТРОЙКИ ДЛЯ ФОРМАТИРОВАНИЯ ТЕКСТА ======
+
+# Параметры заливки и форматирования текста
+TEXT_FORMATTING = {
+    'font_families': ['arial', 'times', 'courier', 'helvetica'],
+    'font_sizes': list(range(8, 72, 2)),  # 8, 10, 12, ... 70
+    'default_font_family': 'arial',
+    'default_font_size': 16,
+    'min_font_size': 8,
+    'max_font_size': 48,
+}
+
+# Предустановленные цвета
+PRESET_COLORS = {
+    'Черный': (0, 0, 0),
+    'Белый': (255, 255, 255),
+    'Красный': (255, 0, 0),
+    'Синий': (0, 0, 255),
+    'Зеленый': (0, 128, 0),
+    'Желтый': (255, 255, 0),
+    'Фиолетовый': (128, 0, 128),
+    'Серый': (128, 128, 128),
+}
+
+# Настройки заливки по умолчанию
+DEFAULT_TEXT_SETTINGS = {
+    'font_family': 'arial',
+    'font_size': 16,
+    'font_color': (0, 0, 0),      # Черный текст
+    'bg_color': (255, 255, 255),  # Белый фон
+    'stroke_width': 0,            # Толщина обводки
+    'stroke_color': (0, 0, 0),    # Цвет обводки
+    'padding': 5,                 # Отступы
+    'alignment': 'center',        # Выравнивание (left, center, right)
+    'transparency': 1.0,          # Прозрачность фона (0.0-1.0)
+    'auto_font_size': True,       # Автоматический размер шрифта
+    'enable_inpainting': True,    # Включить заливку
+}
+
+# Варианты выравнивания
+TEXT_ALIGNMENTS = {
+    'Слева': 'left',
+    'По центру': 'center', 
+    'Справа': 'right'
+}
+
+# ====== КОНЕЦ НОВЫХ НАСТРОЕК ======
+
 # Параметры интерфейса
 MAX_UPLOAD_SIZE = 10  # MB
 ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp']
@@ -79,3 +127,13 @@ def check_ocr_availability():
         available_engines['tesseract'] = False
     
     return available_engines
+
+# Утилиты для работы с цветами
+def hex_to_rgb(hex_color: str) -> tuple:
+    """Конвертация HEX в RGB"""
+    hex_color = hex_color.lstrip('#')
+    return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
+
+def rgb_to_hex(rgb_color: tuple) -> str:
+    """Конвертация RGB в HEX"""
+    return '#%02x%02x%02x' % rgb_color
